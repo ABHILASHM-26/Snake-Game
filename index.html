@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Snake Game</title>
+  <title>Advanced Snake Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,16 +21,19 @@
     </select>
   </div>
 
-  <div id="main-container">
-    <canvas id="game" width="400" height="400" style="display: none;"></canvas>
+ 
+  <div id="game-wrapper" style="display: none;">
+    <canvas id="game" width="400" height="400"></canvas>
 
-    <div id="leaderboard" style="display: none;">
+    <div id="leaderboard">
       <h2>🏆 Leaderboard</h2>
       <ol id="scoreList"></ol>
-      <button id="clearScoresBtn">Clear Leaderboard</button>
     </div>
   </div>
 
+  <button id="restartBtn">Restart Your Game</button>
+
+ 
   <div id="touch-controls" style="display: none;">
     <button onclick="changeDirection('up')">⬆️</button>
     <div>
@@ -40,21 +43,18 @@
     </div>
   </div>
 
-  <button id="restartBtn">Restart Your Game</button>
-
+ 
   <audio id="eatSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
   <audio id="gameOverSound" src="https://www.soundjay.com/button/beep-10.wav"></audio>
   <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" loop></audio>
 
   <script src="snake.js"></script>
 
-  <div style="text-align: center;">
-    <footer style="margin-top: 20px; font-size: 14px;">
-      By 
-      <a href="https://www.linkedin.com/in/abhilashmellacheruvu/" target="_blank" style="color: #0077b5; text-decoration: none;">
-        Abhilash M
-      </a>
-    </footer>
-  </div>
+  <footer style="margin-top: 20px; font-size: 14px; text-align: center;">
+    By 
+    <a href="https://www.linkedin.com/in/abhilashmellacheruvu/" target="_blank" style="color: #0077b5; text-decoration: none;">
+      Abhilash M
+    </a>
+  </footer>
 </body>
 </html>
