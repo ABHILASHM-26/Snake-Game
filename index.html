@@ -2,21 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Snake Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Snake Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="menu">
-    <h1>🐍 Snake Game </h1>
+    <h1>🐍 Snake Game</h1>
     <button id="startBtn">Start Game</button>
     <button id="aiToggle">Enable AI Mode</button>
     <button id="themeToggle">Switch Theme</button>
-    <button id="musicToggle">Change Music</button>
+    <button id="musicToggle">Toggle Music</button>
+    <select id="skinSelect">
+      <option value="classic">Classic</option>
+      <option value="neon">Neon</option>
+      <option value="dark">Dark</option>
+      <option value="rainbow">Rainbow</option>
+    </select>
   </div>
 
   <canvas id="game" width="400" height="400" style="display: none;"></canvas>
   <button id="restartBtn">Restart Your Game</button>
-
 
   <div id="touch-controls" style="display: none;">
     <button onclick="changeDirection('up')">⬆️</button>
@@ -25,6 +31,11 @@
       <button onclick="changeDirection('down')">⬇️</button>
       <button onclick="changeDirection('right')">➡️</button>
     </div>
+  </div>
+
+  <div id="leaderboard" style="display: none;">
+    <h2>🏆 Leaderboard</h2>
+    <ol id="scoreList"></ol>
   </div>
 
   <audio id="eatSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
