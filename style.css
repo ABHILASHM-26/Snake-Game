@@ -12,7 +12,7 @@ body {
 }
 
 canvas {
-  background: #e0f7fa; 
+  background: #e0f7fa;
   border: 2px solid #94d1be;
   box-shadow: 0 0 20px #94d1be99;
 }
@@ -55,4 +55,29 @@ button:hover {
 .dark-theme button {
   background: #8ecae6;
   color: #1f1f1f;
+}
+
+
+#touch-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#touch-controls button {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: #444;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  #touch-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
 }
