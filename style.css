@@ -9,8 +9,8 @@ body {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  transition: background 0.5s, color 0.5s;
   padding: 20px;
+  transition: background 0.5s, color 0.5s;
 }
 
 
@@ -22,7 +22,6 @@ body {
   margin-top: 20px;
   flex-wrap: wrap;
 }
-
 
 canvas {
   background: #e0f7fa;
@@ -143,6 +142,19 @@ button:hover {
 .dark-theme #leaderboard li {
   background: #444;
   color: #fff;
+}
+
+#clearLeaderboardBtn {
+  margin-top: 10px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 5px;
+}
+
+#clearLeaderboardBtn:hover {
+  background: #e03c3c;
 }
 
 
