@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="menu">
+    <h1>🐍 Snake Game </h1>
+    <button id="startBtn">Start Game</button>
+    <button id="aiToggle">Enable AI Mode</button>
+    <button id="themeToggle">Switch Theme</button>
+    <button id="musicToggle">Change Music</button>
+  </div>
+
+  <canvas id="game" width="400" height="400" style="display: none;"></canvas>
+  <button id="restartBtn">Restart Your Game</button>
+
+  <audio id="eatSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+  <audio id="gameOverSound" src="https://www.soundjay.com/button/beep-10.wav"></audio>
+  <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" loop></audio>
+
+  <script src="snake.js"></script>
+    <div style="text-align: center;">
+    <footer style="margin-top: 20px; font-size: 14px;">
+      By 
+      <a href="https://www.linkedin.com/in/abhilashmellacheruvu/" target="_blank" style="color: #0077b5; text-decoration: none;">
+        Abhilash M
+      </a>
+    </footer>
+  </div>
+</body>
+</html>
