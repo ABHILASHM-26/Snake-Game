@@ -57,7 +57,6 @@ button:hover {
   color: #1f1f1f;
 }
 
-
 #touch-controls {
   margin-top: 20px;
   text-align: center;
@@ -80,4 +79,39 @@ button:hover {
     height: 50px;
     font-size: 20px;
   }
+}
+
+#leaderboard {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#leaderboard ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+#leaderboard li {
+  padding: 4px;
+  font-size: 16px;
+  background: #f2f2f2;
+  margin: 4px;
+  border-radius: 5px;
+}
+
+.dark-theme #leaderboard li {
+  background: #333;
+  color: #fff;
+}
+
+select {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+select option {
+  background: white;
+  color: black;
 }
