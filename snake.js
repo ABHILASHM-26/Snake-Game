@@ -1,5 +1,3 @@
-
-
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const eatSound = document.getElementById("eatSound");
@@ -14,8 +12,6 @@ const musicToggle = document.getElementById("musicToggle");
 const skinSelect = document.getElementById("skinSelect");
 const touchControls = document.getElementById("touch-controls");
 const scoreList = document.getElementById("scoreList");
-const gameContainer = document.getElementById("game-container");
-const clearScoresBtn = document.getElementById("clearScoresBtn");
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -43,7 +39,6 @@ function initGame() {
   gameInterval = setInterval(gameLoop, speed);
 
   canvas.style.display = "block";
-  gameContainer.style.display = "flex";
   restartBtn.style.display = "none";
   menu.style.display = "none";
   touchControls.style.display = "block";
@@ -224,14 +219,6 @@ musicToggle.addEventListener("click", () => {
 });
 skinSelect.addEventListener("change", e => {
   currentSkin = e.target.value;
-});
-
-clearScoresBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to clear the leaderboard?")) {
-    localStorage.removeItem("highScores");
-    highScores = [];
-    updateLeaderboard();
-  }
 });
 
 function moveAI() {
