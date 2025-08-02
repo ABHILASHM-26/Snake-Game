@@ -1,4 +1,5 @@
 
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const eatSound = document.getElementById("eatSound");
@@ -13,6 +14,8 @@ const musicToggle = document.getElementById("musicToggle");
 const skinSelect = document.getElementById("skinSelect");
 const touchControls = document.getElementById("touch-controls");
 const scoreList = document.getElementById("scoreList");
+const gameContainer = document.getElementById("game-container");
+const clearScoresBtn = document.getElementById("clearScoresBtn");
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -28,7 +31,6 @@ let hue = 0;
 let powerUps = [];
 let doublePoints = false;
 
-
 function initGame() {
   snake = [{ x: 10, y: 10 }];
   food = { x: 5, y: 5 };
@@ -40,7 +42,8 @@ function initGame() {
   clearInterval(gameInterval);
   gameInterval = setInterval(gameLoop, speed);
 
-  document.getElementById("game-container").style.display = "flex"; 
+  canvas.style.display = "block";
+  gameContainer.style.display = "flex";
   restartBtn.style.display = "none";
   menu.style.display = "none";
   touchControls.style.display = "block";
@@ -71,7 +74,6 @@ function spawnPowerUp() {
     duration: 300
   });
 }
-
 
 function drawSnake() {
   snake.forEach((part, i) => {
@@ -131,7 +133,6 @@ function updateLeaderboard() {
   document.getElementById("leaderboard").style.display = "block";
 }
 
-
 function gameLoop() {
   if (paused || gameOver) return;
   if (autoPlay) moveAI();
@@ -178,7 +179,6 @@ function gameLoop() {
   drawScore();
 }
 
-
 function changeDirection(dir) {
   if (dir === "up" && dy === 0) { dx = 0; dy = -1; direction = "up"; }
   if (dir === "down" && dy === 0) { dx = 0; dy = 1; direction = "down"; }
@@ -224,6 +224,14 @@ musicToggle.addEventListener("click", () => {
 });
 skinSelect.addEventListener("change", e => {
   currentSkin = e.target.value;
+});
+
+clearScoresBtn.addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear the leaderboard?")) {
+    localStorage.removeItem("highScores");
+    highScores = [];
+    updateLeaderboard();
+  }
 });
 
 function moveAI() {
