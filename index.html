@@ -17,12 +17,23 @@
   <canvas id="game" width="400" height="400" style="display: none;"></canvas>
   <button id="restartBtn">Restart Your Game</button>
 
+
+  <div id="touch-controls" style="display: none;">
+    <button onclick="changeDirection('up')">⬆️</button>
+    <div>
+      <button onclick="changeDirection('left')">⬅️</button>
+      <button onclick="changeDirection('down')">⬇️</button>
+      <button onclick="changeDirection('right')">➡️</button>
+    </div>
+  </div>
+
   <audio id="eatSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
   <audio id="gameOverSound" src="https://www.soundjay.com/button/beep-10.wav"></audio>
   <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" loop></audio>
 
   <script src="snake.js"></script>
-    <div style="text-align: center;">
+
+  <div style="text-align: center;">
     <footer style="margin-top: 20px; font-size: 14px;">
       By 
       <a href="https://www.linkedin.com/in/abhilashmellacheruvu/" target="_blank" style="color: #0077b5; text-decoration: none;">
