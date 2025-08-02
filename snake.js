@@ -9,29 +9,45 @@ const menu = document.getElementById("menu");
 const aiToggle = document.getElementById("aiToggle");
 const themeToggle = document.getElementById("themeToggle");
 const musicToggle = document.getElementById("musicToggle");
+const touchControls = document.getElementById("touch-controls");
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
 
 let snake, food, dx, dy, score, gameOver, autoPlay, paused;
+let direction = "right";
 let highScore = localStorage.getItem("highScore") || 0;
 let hue = 0;
 let foodPulse = 0;
 let currentTheme = "light";
+
+let speed = 200;
+let gameInterval;
 
 function initGame() {
   snake = [{ x: 10, y: 10 }];
   food = { x: 5, y: 5 };
   dx = 1;
   dy = 0;
+  direction = "right";
   score = 0;
   gameOver = false;
   paused = false;
   foodPulse = 0;
+  speed = 200;
+  clearInterval(gameInterval);
+  gameInterval = setInterval(gameLoop, speed);
   canvas.style.display = "block";
   restartBtn.style.display = "none";
   menu.style.display = "none";
+  touchControls.style.display = "block";
   if (!bgMusic.paused) bgMusic.play();
+}
+
+function updateSpeed() {
+  clearInterval(gameInterval);
+  if (speed > 50) speed -= 10;
+  gameInterval = setInterval(gameLoop, speed);
 }
 
 startBtn.addEventListener("click", initGame);
@@ -56,9 +72,7 @@ musicToggle.addEventListener("click", () => {
   }
 });
 
-restartBtn.addEventListener("click", () => {
-  initGame();
-});
+restartBtn.addEventListener("click", initGame);
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "p" || e.key === "P") {
@@ -68,11 +82,18 @@ document.addEventListener("keydown", (e) => {
 
   if (autoPlay || paused || gameOver) return;
 
-  if (e.key === "ArrowUp" && dy === 0) { dx = 0; dy = -1; }
-  if (e.key === "ArrowDown" && dy === 0) { dx = 0; dy = 1; }
-  if (e.key === "ArrowLeft" && dx === 0) { dx = -1; dy = 0; }
-  if (e.key === "ArrowRight" && dx === 0) { dx = 1; dy = 0; }
+  if (e.key === "ArrowUp" && dy === 0) changeDirection("up");
+  if (e.key === "ArrowDown" && dy === 0) changeDirection("down");
+  if (e.key === "ArrowLeft" && dx === 0) changeDirection("left");
+  if (e.key === "ArrowRight" && dx === 0) changeDirection("right");
 });
+
+function changeDirection(dir) {
+  if (dir === "up" && dy === 0) { dx = 0; dy = -1; direction = "up"; }
+  if (dir === "down" && dy === 0) { dx = 0; dy = 1; direction = "down"; }
+  if (dir === "left" && dx === 0) { dx = -1; dy = 0; direction = "left"; }
+  if (dir === "right" && dx === 0) { dx = 1; dy = 0; direction = "right"; }
+}
 
 function updateHighScore() {
   if (score > highScore) {
@@ -151,6 +172,7 @@ function gameLoop() {
       x: Math.floor(Math.random() * tileCount),
       y: Math.floor(Math.random() * tileCount)
     };
+    updateSpeed(); // Increase game speed
   } else {
     snake.pop();
   }
@@ -160,5 +182,3 @@ function gameLoop() {
   drawColorfulSnake();
   drawScore();
 }
-
-setInterval(gameLoop, 120);
