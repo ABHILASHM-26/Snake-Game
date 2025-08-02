@@ -38,13 +38,15 @@ function initGame() {
   clearInterval(gameInterval);
   gameInterval = setInterval(gameLoop, speed);
 
-  canvas.style.display = "block";
+  document.getElementById("game-wrapper").style.display = "flex";
   restartBtn.style.display = "none";
   menu.style.display = "none";
   touchControls.style.display = "block";
+
   updateLeaderboard();
   if (!bgMusic.paused) bgMusic.play();
 }
+
 
 function updateSpeed() {
   if (speed > 50) speed -= 10;
