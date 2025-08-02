@@ -12,6 +12,9 @@ const musicToggle = document.getElementById("musicToggle");
 const skinSelect = document.getElementById("skinSelect");
 const touchControls = document.getElementById("touch-controls");
 const scoreList = document.getElementById("scoreList");
+const leaderboardDiv = document.getElementById("leaderboard");
+const gameWrapper = document.getElementById("game-wrapper");
+const clearLeaderboardBtn = document.getElementById("clearLeaderboardBtn");
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -38,15 +41,14 @@ function initGame() {
   clearInterval(gameInterval);
   gameInterval = setInterval(gameLoop, speed);
 
-  document.getElementById("game-wrapper").style.display = "flex";
+  canvas.style.display = "block";
+  gameWrapper.style.display = "flex";
   restartBtn.style.display = "none";
   menu.style.display = "none";
   touchControls.style.display = "block";
-
   updateLeaderboard();
   if (!bgMusic.paused) bgMusic.play();
 }
-
 
 function updateSpeed() {
   if (speed > 50) speed -= 10;
@@ -82,10 +84,22 @@ function drawSnake() {
       ctx.fillRect(x, y, gridSize - 2, gridSize - 2);
       ctx.fillStyle = "black";
       const eyeSize = 3;
-      if (dx === 1) { ctx.fillRect(x + gridSize - 8, y + 4, eyeSize, eyeSize); ctx.fillRect(x + gridSize - 8, y + gridSize - 8, eyeSize, eyeSize); }
-      if (dx === -1) { ctx.fillRect(x + 4, y + 4, eyeSize, eyeSize); ctx.fillRect(x + 4, y + gridSize - 8, eyeSize, eyeSize); }
-      if (dy === -1) { ctx.fillRect(x + 4, y + 4, eyeSize, eyeSize); ctx.fillRect(x + gridSize - 8, y + 4, eyeSize, eyeSize); }
-      if (dy === 1) { ctx.fillRect(x + 4, y + gridSize - 8, eyeSize, eyeSize); ctx.fillRect(x + gridSize - 8, y + gridSize - 8, eyeSize, eyeSize); }
+      if (dx === 1) {
+        ctx.fillRect(x + gridSize - 8, y + 4, eyeSize, eyeSize);
+        ctx.fillRect(x + gridSize - 8, y + gridSize - 8, eyeSize, eyeSize);
+      }
+      if (dx === -1) {
+        ctx.fillRect(x + 4, y + 4, eyeSize, eyeSize);
+        ctx.fillRect(x + 4, y + gridSize - 8, eyeSize, eyeSize);
+      }
+      if (dy === -1) {
+        ctx.fillRect(x + 4, y + 4, eyeSize, eyeSize);
+        ctx.fillRect(x + gridSize - 8, y + 4, eyeSize, eyeSize);
+      }
+      if (dy === 1) {
+        ctx.fillRect(x + 4, y + gridSize - 8, eyeSize, eyeSize);
+        ctx.fillRect(x + gridSize - 8, y + gridSize - 8, eyeSize, eyeSize);
+      }
     } else {
       const brightness = 70 - i * 2;
       let color = "green";
@@ -127,7 +141,7 @@ function updateLeaderboard() {
     li.textContent = `${i + 1}. ${s}`;
     scoreList.appendChild(li);
   });
-  document.getElementById("leaderboard").style.display = "block";
+  leaderboardDiv.style.display = "block";
 }
 
 function gameLoop() {
@@ -135,7 +149,10 @@ function gameLoop() {
   if (autoPlay) moveAI();
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
-  if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || snake.some(p => p.x === head.x && p.y === head.y)) {
+  if (
+    head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount ||
+    snake.some(p => p.x === head.x && p.y === head.y)
+  ) {
     gameOver = true;
     gameOverSound.play();
     bgMusic.pause();
@@ -183,10 +200,12 @@ function changeDirection(dir) {
   if (dir === "right" && dx === 0) { dx = 1; dy = 0; direction = "right"; }
 }
 
+
 document.addEventListener("keydown", e => {
   if (e.key === "p") paused = !paused;
   if (e.key.startsWith("Arrow")) changeDirection(e.key.replace("Arrow", "").toLowerCase());
 });
+
 
 let startX, startY;
 canvas.addEventListener("touchstart", e => {
@@ -199,6 +218,7 @@ canvas.addEventListener("touchend", e => {
   if (Math.abs(dxSwipe) > Math.abs(dySwipe)) changeDirection(dxSwipe > 0 ? "right" : "left");
   else changeDirection(dySwipe > 0 ? "down" : "up");
 });
+
 
 startBtn.addEventListener("click", initGame);
 restartBtn.addEventListener("click", initGame);
@@ -221,6 +241,13 @@ musicToggle.addEventListener("click", () => {
 });
 skinSelect.addEventListener("change", e => {
   currentSkin = e.target.value;
+});
+clearLeaderboardBtn.addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear the leaderboard?")) {
+    localStorage.removeItem("highScores");
+    highScores = [];
+    updateLeaderboard();
+  }
 });
 
 function moveAI() {
