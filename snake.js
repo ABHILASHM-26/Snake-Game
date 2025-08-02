@@ -40,7 +40,7 @@ function initGame() {
   clearInterval(gameInterval);
   gameInterval = setInterval(gameLoop, speed);
 
-  canvas.style.display = "block";
+  document.getElementById("game-container").style.display = "flex"; 
   restartBtn.style.display = "none";
   menu.style.display = "none";
   touchControls.style.display = "block";
